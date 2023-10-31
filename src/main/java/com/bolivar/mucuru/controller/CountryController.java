@@ -23,6 +23,7 @@ public class CountryController {
 	@Autowired
 	CountryService countryService;
 	
+	// Método que trae todos los paises
 	@GetMapping("/all")
 	public ResponseEntity<List<Country>> getAll() {
 		List<Country> list = countryService.allCountrys();

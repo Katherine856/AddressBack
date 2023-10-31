@@ -63,7 +63,7 @@ public class Address {
 	@JoinTable(name = "ADDRESS_PRODUCT_SERVICE", 
 			joinColumns = @JoinColumn(name = "FK_ID_ADDRESS", nullable = false, referencedColumnName = "K_ID"),
 			inverseJoinColumns = @JoinColumn(name = "FK_ID_PRODUCT_SERVICE", nullable = false, referencedColumnName = "K_ID"))
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Product_Service> product_service;
 
 	public Integer getIdAddress() {

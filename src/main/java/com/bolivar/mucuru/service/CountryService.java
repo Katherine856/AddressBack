@@ -19,6 +19,7 @@ public class CountryService {
 	@Autowired
 	CountryRepository countryRepository;
 	
+	// Método que trae todos los paises
 	public List<Country> allCountrys() {
 		List<Country> list = countryRepository.findAll();
 		return list;

@@ -10,17 +10,16 @@ import com.bolivar.mucuru.repository.AddressRepository;
 
 import jakarta.transaction.Transactional;
 
-import com.bolivar.mucuru.DAO.AddressListDAO;
 import com.bolivar.mucuru.entity.Address;
 
 @Service
 @Transactional
 public class AddressService {
-	
+
 	// Repositorio a utilizar
 	@Autowired
 	AddressRepository addressRepository;
-	
+
 	// Método que pemrite encontrar una dirección mediante su ID
 	public Optional<Address> findById(Integer idAddress) {
 		return addressRepository.findById(idAddress);
@@ -31,13 +30,13 @@ public class AddressService {
 		Address addr = addressRepository.save(address);
 		return addr;
 	}
-	
+
 	// Método que permite asignar producto(s) y/o servicio(s) a una dirección
 	public void assignProduct_Service(Integer idAddress, Integer idProductService) {
 		try {
 			addressRepository.assignProduct_Service(idAddress, idProductService);
 		} catch (Exception e) {
-			
+
 		}
 	}
 
@@ -47,14 +46,25 @@ public class AddressService {
 	}
 
 	// Método que permite listar todos las direcciones registradas
-	public List<AddressListDAO> getAll() {
-		List<AddressListDAO> list = addressRepository.addressAll();
+	public List<Address> getAll() {
+		List<Address> list = addressRepository.findAll();
+		return list;
+	}
+
+	// Método que permite listar todos las direcciones registradas
+	public List<Address> getAllByCountry(Integer idCountry) {
+		List<Address> list = addressRepository.findByCountry(idCountry);
 		return list;
 	}
 
 	// Método que permite verificar si existe una dirección mediante su ID
 	public boolean existsByIdAddress(Integer idAddress) {
 		return addressRepository.existsByIdAddress(idAddress);
+	}
+
+	// Método que permite verificar si existe una dirección mediante su ID
+	public void deleteByProduct_Service(Integer idAddress) {
+		addressRepository.deleteByProduct_Service(idAddress);
 	}
 
 }

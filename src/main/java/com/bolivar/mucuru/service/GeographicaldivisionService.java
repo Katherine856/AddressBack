@@ -20,6 +20,7 @@ public class GeographicaldivisionService {
 	@Autowired
 	GeographicaldivisionRepository geographicaldivisionRepository;
 	
+	// Método que trae la división geografica por pais
 	public List<Geographicaldivision> allGeographicaldivision(Integer idCountry) {
 		List<Geographicaldivision> list = geographicaldivisionRepository.findAllGeoDiv(idCountry);
 		return list;

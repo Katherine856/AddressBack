@@ -19,6 +19,7 @@ public class Product_ServiceService {
 	@Autowired
 	Product_ServiceRepository product_serviceRepository;
 	
+	// Método que trae los productos o servicios según sea el caso
 	public List<Product_Service> allProduct_Service(String type) {
 		List<Product_Service> list = product_serviceRepository.findAllProduct_Service(type);
 		return list;

@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bolivar.mucuru.entity.Country;
 import com.bolivar.mucuru.entity.Geographicaldivision;
-import com.bolivar.mucuru.service.CountryService;
 import com.bolivar.mucuru.service.GeographicaldivisionService;
 
 @RestController
@@ -25,6 +23,7 @@ public class GeographicaldivisionController {
 	@Autowired
 	GeographicaldivisionService geographicaldivisionService;
 	
+	// Método que trae todas las divisiones geograficas por pais
 	@GetMapping("/all/{idCountry}")
 	public ResponseEntity<List<Geographicaldivision>> getAll(@PathVariable(value = "idCountry") Integer idCountry) {
 		List<Geographicaldivision> list = geographicaldivisionService.allGeographicaldivision(idCountry);

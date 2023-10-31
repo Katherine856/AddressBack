@@ -12,6 +12,8 @@ import com.bolivar.mucuru.entity.Product_Service;
 @Repository
 public interface Product_ServiceRepository extends JpaRepository<Product_Service, Integer>{
 
-	@Query(value = "SELECT * from PRODUCT_SERVICE WHERE TYPE_PRODUCT_SERVICE = :type", nativeQuery = true)
-	public List<Product_Service> findAllProduct_Service(@Param("type") String type);	
+	// Método que trae los productos o servicios
+	@Query(value = "SELECT * FROM PRODUCT_SERVICE WHERE TYPE_PRODUCT_SERVICE = :type", nativeQuery = true)
+	public List<Product_Service> findAllProduct_Service(@Param("type") String type);
+	
 }

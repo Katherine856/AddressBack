@@ -1,4 +1,4 @@
-package com.bolivar.mucuru.DAO;
+package com.bolivar.mucuru.DTO;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import com.bolivar.mucuru.entity.Geographicaldivision;
 import com.bolivar.mucuru.entity.Product_Service;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AddressDAO {
+public class AddressDTO {
 
 	@JsonProperty("idAddress")
 	private Integer idAddress;

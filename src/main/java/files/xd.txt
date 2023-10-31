@@ -1,0 +1,3 @@
+null;COL-LAG;Calle 52;12;54;null;null;null;null;null;1,2,3
+null;ARG-L;Calle 52;12;54;null;null;null;null;null;4,10,6
+null;MEX-CL;Calle 52;12;54;null;null;null;null;null;7,13,9
