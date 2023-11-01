@@ -20,7 +20,7 @@ public class AddressService {
 	// Repositorio a utilizar
 	@Autowired
 	AddressRepository addressRepository;
-	
+
 	@Autowired
 	JDBCAddressRepository jdbcAddressRepository;
 
@@ -66,9 +66,14 @@ public class AddressService {
 		return addressRepository.existsByIdAddress(idAddress);
 	}
 
-	// Método que permite verificar si existe una dirección mediante su ID
+	// Método que elimina los productos y servicios relacionados a una dirección
 	public void deleteByProduct_Service(Integer idAddress) {
 		jdbcAddressRepository.deleteProductService(idAddress);
+	}
+
+	// Método que permite verificar si existe una dirección mediante su ID
+	public void deleteAllAddress() {
+		jdbcAddressRepository.deleteAllAddress();
 	}
 
 }

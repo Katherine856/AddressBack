@@ -120,4 +120,11 @@ public class AddressController {
 		return ResponseEntity.ok().build();
 	}
 
+	// Método que permite borrar una dirección mediante su id
+	@GetMapping("/delete/all")
+	public ResponseEntity<?> deleteAll() {
+		addressService.deleteAllAddress();
+		return ResponseEntity.ok().build();
+	}
+
 }
