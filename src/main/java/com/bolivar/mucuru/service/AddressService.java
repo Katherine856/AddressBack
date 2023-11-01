@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bolivar.mucuru.repository.AddressRepository;
+import com.bolivar.mucuru.repository.JDBCAddressRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -19,6 +20,9 @@ public class AddressService {
 	// Repositorio a utilizar
 	@Autowired
 	AddressRepository addressRepository;
+	
+	@Autowired
+	JDBCAddressRepository jdbcAddressRepository;
 
 	// Método que pemrite encontrar una dirección mediante su ID
 	public Optional<Address> findById(Integer idAddress) {
@@ -64,7 +68,7 @@ public class AddressService {
 
 	// Método que permite verificar si existe una dirección mediante su ID
 	public void deleteByProduct_Service(Integer idAddress) {
-		addressRepository.deleteByProduct_Service(idAddress);
+		jdbcAddressRepository.deleteProductService(idAddress);
 	}
 
 }

@@ -1,8 +1,12 @@
 package com.bolivar.mucuru.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bolivar.mucuru.entity.Address;
+import com.bolivar.mucuru.entity.Change;
 import com.bolivar.mucuru.repository.ChangeRepository;
 
 import jakarta.transaction.Transactional;
@@ -23,4 +27,11 @@ public class ChangeService {
 			
 		}
 	}
+	
+	// Método que permite listar todos los cambios registrados
+	public List<Change> getAll() {
+		List<Change> list = changeRepository.findAll();
+		return list;
+	}
+	
 }

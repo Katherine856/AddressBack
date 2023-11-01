@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bolivar.mucuru.DTO.AddressDTO;
 import com.bolivar.mucuru.entity.Address;
 import com.bolivar.mucuru.service.AddressService;
 import com.bolivar.mucuru.service.ChangeService;
@@ -34,25 +33,25 @@ public class AddressController {
 
 	// Método que permite crear una dirección
 	@PostMapping("/create")
-	public ResponseEntity<?> create(@RequestBody AddressDTO addressDao) {
-		if (addressService.existsByIdAddress(addressDao.getIdAddress()))
+	public ResponseEntity<?> create(@RequestBody Address addressDTO) {
+		if (addressService.existsByIdAddress(addressDTO.getIdAddress()))
 			return new ResponseEntity<>(new String("Esta dirrecion ya existe"), HttpStatus.BAD_REQUEST);
 		try {
 			Address address = new Address();
-			address.setIdAddress(addressDao.getIdAddress());
-			address.setGeographicalDivision(addressDao.getGeographicalDivision());
-			address.setInfoAddress(addressDao.getInfoAddress());
-			address.setLatitude(addressDao.getLatitude());
-			address.setLongitude(addressDao.getLongitude());
-			address.setResidential(addressDao.getResidential());
-			address.setBuilding(addressDao.getBuilding());
-			address.setTower(addressDao.getTower());
-			address.setFloor(addressDao.getFloor());
-			address.setApartment(addressDao.getApartment());
+			address.setIdAddress(addressDTO.getIdAddress());
+			address.setGeographicalDivision(addressDTO.getGeographicalDivision());
+			address.setInfoAddress(addressDTO.getInfoAddress());
+			address.setLatitude(addressDTO.getLatitude());
+			address.setLongitude(addressDTO.getLongitude());
+			address.setResidential(addressDTO.getResidential());
+			address.setBuilding(addressDTO.getBuilding());
+			address.setTower(addressDTO.getTower());
+			address.setFloor(addressDTO.getFloor());
+			address.setApartment(addressDTO.getApartment());
 			addressService.saveAddress(address);
-			for (int i = 0; i < addressDao.getProduct_service().size(); i++) {
+			for (int i = 0; i < addressDTO.getProduct_service().size(); i++) {
 				addressService.assignProduct_Service(address.getIdAddress(),
-						addressDao.getProduct_service().get(i).getIdProduct_Service());
+						addressDTO.getProduct_service().get(i).getIdProduct_Service());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,13 +76,13 @@ public class AddressController {
 	// Método que traer a una dirección mediante su id
 	@GetMapping("/{idAddress}")
 	public ResponseEntity<Address> getOne(@PathVariable(value = "idAddress") Integer idAddress) {
-		Address address = addressService.findById(idAddress).get();
+		Address address = addressService.findById(idAddress).orElse(null);
 		return new ResponseEntity<Address>(address, HttpStatus.OK);
 	}
 
 	// Método que permite actualizar una dirección mediante su id
 	@PutMapping("/update/{idAddress}/{idUser}")
-	public ResponseEntity<?> update(@RequestBody AddressDTO address, @PathVariable("idAddress") Integer idAddress,
+	public ResponseEntity<?> update(@RequestBody Address address, @PathVariable("idAddress") Integer idAddress,
 			@PathVariable("idUser") Integer idUser) {
 		if (!addressService.existsByIdAddress(idAddress))
 			return new ResponseEntity<>(new String("No existe esa dirección"), HttpStatus.NOT_FOUND);
