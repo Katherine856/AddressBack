@@ -25,7 +25,7 @@ public class BulkUploadController {
 	public ResponseEntity<?> cargar(@RequestParam("addresses") MultipartFile archivo) {
 		try {
 			// Se sube el archivo
-			bulkUploadAddress.subirArchivo(bulkUploadAddress.guardar(archivo));
+			bulkUploadAddress.subirArchivo(bulkUploadAddress.saveFile(archivo));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -31,75 +31,76 @@ public class BulkUploadAddresses {
 	GeographicaldivisionRepository geographicaldivisionRepository;
 
 	// Directorio donde se almacenarán los archivos
-	private String carpeta = "src/main/java/files/";
+	private String folder = "src/main/java/files/";
 
 	// Método para guardar los archivos
-	public String guardar(MultipartFile file) throws IOException {
+	public String saveFile(MultipartFile file) throws IOException {
 		byte[] bytes = file.getBytes();
-		Path path = Paths.get(carpeta + file.getOriginalFilename());
+		Path path = Paths.get(folder + file.getOriginalFilename());
 		Files.write(path, bytes);
 		return path.toString();
 	}
 
 	// Método para registrar los datos del archivo
-	@SuppressWarnings("resource")
+	@SuppressWarnings("resource") //Omitir avisos
 	public void subirArchivo(String txt) {
 		@SuppressWarnings("unused")
 		int auxRegistros = 0;
 		try {
 			BufferedReader buffer = new BufferedReader(new InputStreamReader(new FileInputStream(txt), "utf-8"));
-			String registro = "";
-			while ((registro = buffer.readLine()) != null) {
+			String record = "";
+			while ((record = buffer.readLine()) != null) {
 				massiveAddress = new Address();
 				auxRegistros++;
-				String[] columna = registro.split(";");
+				String[] column = record.split(";");
 				// Condición para saber si se registra o se actualiza la dirección
-				if (columna[0].equals("null")) {
+				if (column[0].equals("null")) {
 					massiveAddress.setIdAddress(null);
 				} else {
-					massiveAddress.setIdAddress(Integer.parseInt(columna[0]));
+					massiveAddress.setIdAddress(Integer.parseInt(column[0]));
 				}
 				// Get de la division geografica para asignarla a la dirección
-				geoDiv = geographicaldivisionRepository.findById(columna[1]).get();
+				geoDiv = geographicaldivisionRepository.findById(column[1]).get();
 				massiveAddress.setGeographicalDivision(geoDiv);
-				massiveAddress.setInfoAddress(columna[2]);
-				massiveAddress.setLatitude(Integer.parseInt(columna[3]));
-				massiveAddress.setLongitude(Integer.parseInt(columna[4]));
-				if (columna[5].equals("null")) {
+				massiveAddress.setInfoAddress(column[2]);
+				massiveAddress.setLatitude(Integer.parseInt(column[3]));
+				massiveAddress.setLongitude(Integer.parseInt(column[4]));
+				if (column[5].equals("null")) {
 					massiveAddress.setResidential(null);
 				} else {
-					massiveAddress.setResidential(columna[5]);
+					massiveAddress.setResidential(column[5]);
 				}
-				if (columna[6].equals("null")) {
+				if (column[6].equals("null")) {
 					massiveAddress.setBuilding(null);
 				} else {
-					massiveAddress.setBuilding(columna[6]);
+					massiveAddress.setBuilding(column[6]);
 				}
-				if (columna[7].equals("null")) {
+				if (column[7].equals("null")) {
 					massiveAddress.setTower(null);
 				} else {
-					massiveAddress.setTower(columna[7]);
+					massiveAddress.setTower(column[7]);
 				}
-				if (columna[8].equals("null")) {
+				if (column[8].equals("null")) {
 					massiveAddress.setFloor(null);
 				} else {
-					massiveAddress.setFloor(Integer.parseInt(columna[8]));
+					massiveAddress.setFloor(Integer.parseInt(column[8]));
 				}
-				if (columna[9].equals("null")) {
+				if (column[9].equals("null")) {
 					massiveAddress.setApartment(null);
 				} else {
-					massiveAddress.setApartment(Integer.parseInt(columna[9]));
+					massiveAddress.setApartment(Integer.parseInt(column[9]));
 				}
 				
 				// Se guarda la dirección
 				Address addressAux = addressService.saveAddress(massiveAddress);
-				// Se Asignan los productos y servicios a la dirección
 				
-				String[] Product_Service = columna[10].split(",");
+				// Se Asignan los productos y servicios a la dirección
+				String[] Product_Service = column[10].split(",");
 				
 				for(int i=0;i<Product_Service.length; i++) {
 					addressService.assignProduct_Service(addressAux.getIdAddress(), Integer.parseInt(Product_Service[i]));
 				}
+				
 				// Se limpia el objeto para permitir inserción de todos las direcciones disponibles
 				massiveAddress = null;
 			}   
