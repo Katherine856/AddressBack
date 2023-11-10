@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,8 +64,10 @@ public class BulkUploadAddresses {
 				geoDiv = geographicaldivisionRepository.findById(column[1]).get();
 				massiveAddress.setGeographicalDivision(geoDiv);
 				massiveAddress.setInfoAddress(column[2]);
-				massiveAddress.setLatitude(Integer.parseInt(column[3]));
-				massiveAddress.setLongitude(Integer.parseInt(column[4]));
+				BigDecimal lat = new BigDecimal(column[3]);
+				massiveAddress.setLatitude(lat);
+				BigDecimal lng = new BigDecimal(column[4]);
+				massiveAddress.setLongitude(lng);
 				if (column[5].equals("null")) {
 					massiveAddress.setResidential(null);
 				} else {

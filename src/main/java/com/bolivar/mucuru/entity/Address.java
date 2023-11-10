@@ -1,5 +1,6 @@
 package com.bolivar.mucuru.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -35,11 +36,11 @@ public class Address {
 	@Column(name="INFO_ADDRESS", nullable = false, length = 100)
 	private String infoAddress;
 	
-	@Column(name="LATITUDE", nullable = false)
-	private Integer latitude ;
+	@Column(name="LATITUDE", precision=9, scale=6, nullable = false)
+	private BigDecimal latitude ;
 	
-	@Column(name="LONGITUDE", nullable = false)
-	private Integer longitude ;
+	@Column(name="LONGITUDE", precision=9, scale=6, nullable = false)
+	private BigDecimal longitude ;
 	
 	@Column(name="RESIDENTIAL", length = 50)
 	private String residential;
@@ -90,19 +91,19 @@ public class Address {
 		this.infoAddress = infoAddress;
 	}
 
-	public Integer getLatitude() {
+	public BigDecimal getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Integer latitude) {
+	public void setLatitude(BigDecimal latitude) {
 		this.latitude = latitude;
 	}
 
-	public Integer getLongitude() {
+	public BigDecimal getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Integer longitude) {
+	public void setLongitude(BigDecimal longitude) {
 		this.longitude = longitude;
 	}
 
